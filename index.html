@@ -2675,9 +2675,18 @@ function renderPPE(){
 }
 
 /* CARTE */
+const SN_GEO={type:'FeatureCollection',features:[{type:'Feature',properties:{name:'Sénégal'},geometry:{type:'MultiPolygon',coordinates:[[[[-17.5323,14.7618],[-17.4956,14.8968],[-17.1634,14.9546],[-16.7208,15.1426],[-16.5637,15.2666],[-16.2706,15.5359],[-16.0596,15.8734],[-15.8118,16.1373],[-15.5469,16.2716],[-15.3011,16.4035],[-15.0756,16.5263],[-14.6791,16.6395],[-14.3612,16.6854],[-14.1242,16.6311],[-13.8443,16.1283],[-13.6639,15.6809],[-13.7765,15.3705],[-13.9718,15.1427],[-14.3628,14.9712],[-14.6977,14.6634],[-15.1192,14.4655],[-15.4265,14.1703],[-15.6296,13.9725],[-15.8474,13.8394],[-16.1255,13.7197],[-16.4638,13.6038],[-16.7283,13.5007],[-17.0228,13.3889],[-17.2772,13.2083],[-17.4924,13.0476],[-17.6500,13.1283],[-17.7833,13.2999],[-17.8300,13.5],[-17.6947,14.0178],[-17.5323,14.7618]]]]}}]};
+const GM_GEO={type:'FeatureCollection',features:[{type:'Feature',properties:{name:'Gambie'},geometry:{type:'Polygon',coordinates:[[[-16.8407,13.1527],[-16.5635,13.0623],[-15.8115,13.1],[-15.0085,13.4],[-14.6994,13.2949],[-14.3847,13.2328],[-14.1007,13.2616],[-13.8448,13.2031],[-13.8448,13.4661],[-14.2769,13.5],[-14.9167,13.6],[-15.5,13.59],[-16.2124,13.4609],[-16.6779,13.5],[-16.8407,13.3],[-16.8407,13.1527]]]}}]};
 function initMap(){
-  leafMap=L.map('map',{center:[14.5,-14.5],zoom:7.5,zoomSnap:0.25,minZoom:6.5,maxZoom:11,maxBounds:[[11.8,-17.8],[16.9,-11.1]],maxBoundsViscosity:1.0});
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'© Esri | CN-ITIE Sénégal',noWrap:true,maxZoom:16}).addTo(leafMap);
+  leafMap=L.map('map',{center:[14.5,-14.5],zoom:7.5,zoomSnap:0.25,minZoom:6.5,maxZoom:11,maxBounds:[[11.8,-17.8],[16.9,-11.1]],maxBoundsViscosity:1.0,attributionControl:true});
+  // Fond océan
+  document.getElementById('map').style.background='#dce9f5';
+  // Contour Sénégal
+  L.geoJSON(SN_GEO,{style:{fillColor:'#f5f0e8',fillOpacity:1,color:'#b0a080',weight:1.5}}).addTo(leafMap);
+  // La Gambie
+  L.geoJSON(GM_GEO,{style:{fillColor:'#e8e0d0',fillOpacity:1,color:'#b0a080',weight:1}}).addTo(leafMap);
+  L.control.attribution({prefix:false}).addTo(leafMap);
+  leafMap.attributionControl.addAttribution('© CN-ITIE Sénégal');
   updateMap();
   document.querySelectorAll('input[name="mm"]').forEach(r=>r.addEventListener('change',updateMap));
 }
