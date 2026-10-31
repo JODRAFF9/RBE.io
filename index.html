@@ -2707,7 +2707,7 @@ function updateMap(){
   const label={nb:'Bénéficiaires',ne:'Entreprises',np:'PPE'}[metric];
   rs.forEach(s=>{
     const c=COORDS[s.region];if(!c)return;
-    const val=s[fk]||0,rad=10+(val/maxV)*45;
+    const val=s[fk]||0,rad=10+(val/maxV)*45;if(!val)return;
     L.circleMarker(c,{radius:rad,fillColor:val?CL.g:'#ccc',fillOpacity:.2+.65*(val/maxV),color:CL.gd,weight:1.5})
      .bindPopup(`<div style="font-family:DM Sans,sans-serif;min-width:190px"><div style="font-size:15px;font-weight:700;color:#2799D7;border-bottom:2px solid #2799D7;padding-bottom:5px;margin-bottom:8px">${s.region}</div><table style="width:100%;font-size:13px"><tr><td>Entreprises</td><td style="text-align:right;font-weight:600">${s.ne}</td></tr><tr><td>Bénéficiaires</td><td style="text-align:right;font-weight:600">${s.nb}</td></tr><tr><td style="color:#1C6FA5;font-weight:600">PPE</td><td style="text-align:right;color:#1C6FA5;font-weight:700">${s.np}</td></tr></table></div>`)
      .bindTooltip(`${s.region} - ${label} : ${val}`,{sticky:true}).addTo(leafMap);
