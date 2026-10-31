@@ -2677,7 +2677,7 @@ function renderPPE(){
 /* CARTE */
 function initMap(){
   leafMap=L.map('map',{center:[14.5,-14.5],zoom:7.5,zoomSnap:0.25,minZoom:6.5,maxZoom:11,maxBounds:[[11.8,-17.8],[16.9,-11.1]],maxBoundsViscosity:1.0});
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | CN-ITIE',noWrap:true,maxZoom:19}).addTo(leafMap);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'© Esri | CN-ITIE Sénégal',noWrap:true,maxZoom:16}).addTo(leafMap);
   updateMap();
   document.querySelectorAll('input[name="mm"]').forEach(r=>r.addEventListener('change',updateMap));
 }
